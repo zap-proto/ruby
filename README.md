@@ -4,6 +4,9 @@
 
 # Ruby Edition
 
+> **Docs:** [ZAP Ruby SDK](https://zap-proto.dev/docs/sdks) · part of the [ZAP Protocol](https://zap-proto.io)
+
+
 This here is a [Ruby][ruby] wrapper for the official C++ implementation of [Cap'n Proto][capnp].
 
 [![Build Status][travis-badge]][travis-link]

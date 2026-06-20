@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 from __future__ import print_function
 import os
+# Dev-only fixture generator. `capnp` here is the upstream pycapnp schema
+# compiler (external tooling), not ZAP brand — retargets to the ZAP runtime's
+# Python loader when published. Schema files use the .zap extension.
 import capnp
 
 this_dir = os.path.dirname(__file__)
 out_path = os.path.join(this_dir, 'addressbook.bin')
-addressbook = capnp.load(os.path.join(this_dir, 'addressbook.capnp'))
+addressbook = capnp.load(os.path.join(this_dir, 'addressbook.zap'))
 
 def writeAddressBook(file):
     addresses = addressbook.AddressBook.newMessage()

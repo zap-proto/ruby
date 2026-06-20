@@ -1,37 +1,44 @@
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/cstrahan/capnp-ruby/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+![ZAP][logo]
 
-![Cap'n Proto][logo]
-
-# Ruby Edition
+# ZAP — Ruby Edition
 
 > **Docs:** [ZAP Ruby SDK](https://zap-proto.dev/docs/sdks) · part of the [ZAP Protocol](https://zap-proto.io)
 
 
-This here is a [Ruby][ruby] wrapper for the official C++ implementation of [Cap'n Proto][capnp].
-
-[![Build Status][travis-badge]][travis-link]
+This is the [Ruby][ruby] binding for [ZAP][zap] — an insanely fast binary data
+interchange format and capability-based RPC system.
 
 # Installing
 
-First [install libcapnp][libcapnp-install], then install the gem:
+The native extension links the ZAP C++ runtime. Until the standalone `libzap`
+runtime ships, the binding builds against the upstream-compatible serialization
+library (`libcapnp`); install it first, then install the gem:
 
 ```bash
-gem install capn_proto --pre
+gem install zap --pre
 ```
 
-The native extension for this gem requires a C++ compiler with C++11 features, so use the same C++ compiler and flags that you used to compile libcapnp (e.g. `CXX` and `CXXFLAGS`). As an OSX user, having followed the [instructions for installing libcapnp on OSX][libcapnp-install], the correct incantation is as follows:
+The native extension requires a C++ compiler with C++11 features, so use the
+same C++ compiler and flags you used to build the runtime (e.g. `CXX` and
+`CXXFLAGS`). On macOS:
 
 ```bash
-CXX=$HOME/clang-3.2/bin/clang++ gem install capn_proto --pre
+gem install zap --pre
 ```
+
+> **Runtime dependency note.** This binding currently links the upstream
+> serialization runtime (`libcapnp` / `<capnp/...>`, `-lcapnp -lcapnpc -lkj`).
+> Those references are the external dependency surface, not ZAP brand identity;
+> they retarget to `libzap` once the ZAP C++ runtime is published. Schema files
+> use the `.zap` extension.
 
 # Example
 
 ```ruby
-require 'capn_proto'
+require 'zap'
 
-module AddressBook extend CapnProto::SchemaLoader
-  load_schema("addressbook.capnp")
+module AddressBook extend Zap::SchemaLoader
+  load_schema("addressbook.zap")
 end
 
 def write_address_book(file)
@@ -110,12 +117,8 @@ What's to come:
 - Proper support for [JRuby][jruby]
 - Support for RPC
 
-[logo]: https://raw.github.com/cstrahan/capnp-ruby/master/media/captain_proto_small.png "Cap'n Proto"
+[logo]: media/zap_logo_small.png "ZAP"
 [ruby]: http://www.ruby-lang.org/ "Ruby"
-[capnp]: http://kentonv.github.io/capnproto/ "Cap'n Proto"
+[zap]: https://zap-proto.io "ZAP Protocol"
 [jruby]: http://jruby.org/ "JRuby"
-[libcapnp-install]: http://kentonv.github.io/capnproto/install.html "Installing Cap'n Proto"
 [mit-license]: http://opensource.org/licenses/MIT "MIT License"
-
-[travis-link]: https://travis-ci.org/cstrahan/capnp-ruby
-[travis-badge]: https://travis-ci.org/cstrahan/capnp-ruby.png?branch=master

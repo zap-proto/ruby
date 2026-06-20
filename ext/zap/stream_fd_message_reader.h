@@ -1,0 +1,21 @@
+#ifndef STREAM_FD_MESSAGE_READER_H
+#define STREAM_FD_MESSAGE_READER_H
+
+#include "ruby_zap.h"
+
+namespace ruby_zap {
+  class StreamFdMessageReader {
+  public:
+    using WrappedType = capnp::StreamFdMessageReader;
+    static void Init();
+    static VALUE alloc(VALUE klass);
+    static VALUE initialize(VALUE klass, VALUE io);
+    static void free(WrappedType* p);
+    static WrappedType* unwrap(VALUE self);
+    static VALUE get_root(VALUE self, VALUE schema);
+
+    static VALUE Class;
+  };
+}
+
+#endif /* STREAM_FD_MESSAGE_READER_H */

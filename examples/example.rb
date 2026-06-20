@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 $: << File.expand_path("../../lib", __FILE__)
 $: << File.expand_path("../../ext", __FILE__)
-require 'capn_proto'
+require 'zap'
 
-ADDRESSBOOK_SCHEMA = File.expand_path("../addressbook.capnp", __FILE__);
+ADDRESSBOOK_SCHEMA = File.expand_path("../addressbook.zap", __FILE__);
 MESSAGE = File.expand_path("../addressbook.bin", __FILE__);
 
-module AddressBook extend CapnProto::SchemaLoader
+module AddressBook extend Zap::SchemaLoader
   load_schema(ADDRESSBOOK_SCHEMA)
 end
 

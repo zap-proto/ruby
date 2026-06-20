@@ -1,6 +1,11 @@
 Gemfile.lock
 *.bundle
+*.bundle.dSYM
+*.o
 *.pyc
 tmp
 .env
 pkg
+*.gem
+ext/**/Makefile
+ext/**/mkmf.log

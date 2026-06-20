@@ -16,4 +16,7 @@ before_install:
                                      --slave   /usr/bin/g++  g++  /usr/bin/g++-4.8
                                      --slave   /usr/bin/gcov gcov /usr/bin/gcov-4.8
   - sudo update-alternatives --quiet --set gcc /usr/bin/gcc-4.8
+  # Build & install the ZAP C++ runtime. Until standalone libzap is published,
+  # this is the upstream-compatible serialization runtime (external dependency,
+  # not ZAP brand) that the native extension links against.
   - git clone --depth=1 https://github.com/kentonv/capnproto.git && cd capnproto/c++ && ./setup-autotools.sh && autoreconf -i && ./configure && make -j6 check && sudo make install && sudo ldconfig && cd ../..

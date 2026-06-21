@@ -1,0 +1,11 @@
+ruby — part of the ZAP Protocol (github.com/zap-proto)
+
+This product includes software developed by the capnp-ruby project:
+  capnp-ruby — https://github.com/cstrahan/capnp-ruby
+  Copyright (c) 2013 Charles Strahan
+  Licensed under the MIT License (see LICENSE).
+
+ZAP is a derivative work: a brand-neutral fork of capnp-ruby providing the Ruby
+binding for the ZAP serialization format and capability RPC system. The native
+extension links the ZAP/Cap'n Proto-compatible C++ serialization runtime.
+Modifications Copyright (c) 2025 Lux Industries Inc.

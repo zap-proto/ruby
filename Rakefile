@@ -6,7 +6,7 @@ require 'rubygems/package_task'
 Gem::PackageTask.new(GEMSPEC) do |pkg|
 end
 
-gem 'rake-compiler', '~> 0.9'
+gem 'rake-compiler', '~> 1.2'
 require 'rake/extensiontask'
 Rake::ExtensionTask.new('zap', GEMSPEC) do |ext|
   ext.ext_dir = 'ext/zap'

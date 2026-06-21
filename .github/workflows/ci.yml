@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-test:
+    name: build + test (ruby ${{ matrix.ruby }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 3.3 is the supported build/test Ruby: rake-compiler + the native ext
+        # toolchain and rspec 3 all work cleanly. (Ruby 4 / mkmf C++ rules are
+        # not yet supported by rake-compiler — see ext/zap/extconf.rb.)
+        ruby: ["3.3"]
+    steps:
+      - uses: actions/checkout@v4
+
+      # The native extension links the ZAP C++ runtime, which is currently the
+      # upstream-compatible serialization runtime (external dependency, not ZAP
+      # brand): capnp/kj headers and -lcapnpc/-lcapnp/-lkj, discovered via
+      # pkg-config. libcapnp-dev provides all three libs + the .pc files.
+      - name: Install ZAP C++ runtime (libcapnp)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            capnproto libcapnp-dev pkg-config
+          pkg-config --modversion capnp
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - name: Compile native extension
+        run: bundle exec rake compile
+
+      - name: Run specs
+        run: bundle exec rake spec

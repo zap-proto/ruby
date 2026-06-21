@@ -22,9 +22,9 @@ Gem::Specification.new do |s|
   s.authors = ['ZAP Protocol']
   s.email = ['dev@zap-proto.io']
 
-  s.add_development_dependency 'rspec', '~> 2.14'
+  s.add_development_dependency 'rspec', '~> 3.13'
   s.add_development_dependency 'rake', '~> 13.0'
-  s.add_development_dependency 'rake-compiler', '~> 0.9'
+  s.add_development_dependency 'rake-compiler', '~> 1.2'
 
   s.add_development_dependency 'awesome_print'
   s.add_development_dependency 'interactive_editor'
